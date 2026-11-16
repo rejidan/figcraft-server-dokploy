@@ -1,0 +1,12 @@
+services:
+  figcraft-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: figcraft-server:latest
+    restart: unless-stopped
+    volumes:
+      - figcraft-data:/data
+
+volumes:
+  figcraft-data:

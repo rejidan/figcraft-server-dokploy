@@ -1,0 +1,8 @@
+# figcraft-server config untuk Dokploy.
+# Dokploy (Traefik) yang mengurus domain + TLS, jadi server cukup listen di 47900.
+# public_url adalah alamat wss:// yang dipakai aplikasi FigCraft untuk join.
+listen = "0.0.0.0:47900"
+data = "/data"
+public_url = "wss://figcraft.runto.my.id/"
+open_publish = false
+max_file_mb = 64
