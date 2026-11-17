@@ -20,6 +20,24 @@ Dockerfile di Dokploy (app.runto.my.id, host 198.144.183.178).
 5. DNS: A record `figcraft.runto.my.id` → 198.144.183.178 (DNS-only di Cloudflare).
 6. Deploy, lalu cek `https://figcraft.runto.my.id/healthz` → `ok`.
 
+## Editor di browser (figcraft-web)
+
+Server kolaborasi saja tidak cukup buat join dari browser: tidak ada web build
+resmi yang di-host publik, dan figcraft-server cuma menjawab `/healthz` + WebSocket.
+Jadi repo ini juga meng-host editor web resmi v0.18.1:
+
+- `web/` — isi `figcraft-web-0.18.1.zip` resmi (SHA256 `2fbeb93f5022b0a7cc9d8528f1ed7e2b54c94d213ef79e65128aa898c399f02b`),
+  `index.html`-nya sudah ditambah `<meta name="figcraft-server"
+  content="wss://figcraft.runto.my.id/">` supaya halaman langsung memakai
+  server sendiri tanpa set di Preferences.
+- `Dockerfile.web` + `nginx-figcraft.conf` — nginx:alpine, `.wasm` sebagai
+  `application/wasm`, gzip, cache immutable untuk file ber-hash.
+- Service `figcraft-web` di `docker-compose.yml`, domain
+  **app.figcraft.runto.my.id** → port 80 (HTTPS via Traefik), DNS A ke
+  198.144.183.178 (DNS-only).
+- Join dari browser: `https://app.figcraft.runto.my.id/#join=<invite-link-encoded>`
+  (di headless Chrome tambah `?webgl` sebelum `#join=` karena WebGPU tidak ada).
+
 ## Ambil server key (sekali, JANGAN tampilkan di chat)
 
 Dari host Dokploy (SSH root):

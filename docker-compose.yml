@@ -8,5 +8,14 @@ services:
     volumes:
       - figcraft-data:/data
 
+  # Editor FigCraft di browser (static site resmi v0.18.1).
+  # Domain: app.figcraft.runto.my.id -> service ini port 80.
+  figcraft-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    image: figcraft-web:latest
+    restart: unless-stopped
+
 volumes:
   figcraft-data:

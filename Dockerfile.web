@@ -1,0 +1,11 @@
+# figcraft-web (editor di browser) — static site resmi v0.18.1.
+# Satu-satunya yang dibutuhkan: serve file statis + .wasm sebagai
+# application/wasm + gzip (lihat packaging/web/README.md).
+# index.html sudah berisi <meta name="figcraft-server"> ke wss://figcraft.runto.my.id/
+# sehingga halaman ini langsung memakai server kolaborasi sendiri.
+FROM nginx:alpine
+
+COPY web/ /usr/share/nginx/html/
+COPY nginx-figcraft.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
